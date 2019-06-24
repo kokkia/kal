@@ -10,7 +10,7 @@ class stepping_motor{
     double n;//分解能P/R
     double v;//velocity[rad/s]
     double x;
-    bool dir = 0;//回転方向0:forward,1:backward
+    bool dir = 1;//回転方向1:forward,0:backward
     stepping_motor(double n_in);
     void set_direction(bool dir_in);
     double velocity_control(double v);

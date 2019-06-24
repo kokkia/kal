@@ -1,4 +1,6 @@
 //nxt motor controller 
+//@todo:nxtmotor class つくる
+
 #ifndef ___NXT_MOTOR_H
 #define ___NXT_MOTOR_H
 //#include <Arduino.h>

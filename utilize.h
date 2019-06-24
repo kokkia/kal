@@ -6,7 +6,7 @@
 #define RAD2DEG (180.0/PI)
 
 namespace kal{
-
+//上限値下限値
 template <class T>
 void range(T mini,T maxi,T& x){
   if(x>maxi){    x=maxi;  }
@@ -30,7 +30,7 @@ T trape_integral(double t,T v_bfr,T v,T x){
 template <class T>
 void dead_zone_compensate(T v_bfr,T v,T& x,T dead_zone){
   if( v_bfr * v < 0.0 ){
-    if(v > 5.0*DEG2RAD ){
+    if(v > 5.0*DEG2RAD ){//不感帯補償をいれるthreshold
       x += dead_zone;
     }
     else if(v < -5.0*DEG2RAD){
@@ -38,6 +38,8 @@ void dead_zone_compensate(T v_bfr,T v,T& x,T dead_zone){
     }
   }
 }
+
+
 
 }
 

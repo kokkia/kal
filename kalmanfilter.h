@@ -1,4 +1,5 @@
 //kalman filter 
+//@todo:MIMOに対応したい
 #ifndef ___KALMAN_FILTER_H
 #define ___KALMAN_FILTER_H
 #include "config.h"
