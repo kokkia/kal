@@ -69,7 +69,7 @@ HPF<T>::HPF(T x_in, double fc_in) : filter_base<T>(x_in){
 template <class T>
 void HPF<T>::update(T xm){
   double Tc = 1.0/(2*PI*fc);
-  this->x=2.0*Tc/(Ts/1000.0+2.0*Tc)*xm - Ts/1000.0/(Ts/1000.0+2.0*Tc)*this->x;
+  this->x=2.0*Tc/(Ts+2.0*Tc)*xm - Ts/(Ts+2.0*Tc)*this->x;
 }
 
 
@@ -92,8 +92,8 @@ Diff<T>::Diff(T x_in, double fc_in) : filter_base<T>(x_in){
 template <class T>
 void Diff<T>::update(T xm){
   double Tc = 1.0/(2.0*PI*fc);
-  this->x=(xm-this->x_bfr+(Tc-Ts/1000.0/2.0)*this->x)/(Ts/1000.0/2.0+Tc);
-  //this->x=(xm-this->x_bfr)/((double)Ts/1000.0);
+  this->x=(xm-this->x_bfr+(Tc-Ts/2.0)*this->x)/(Ts/2.0+Tc);
+  //this->x=(xm-this->x_bfr)/((double)Ts);
   this->x_bfr=xm;
 }
 

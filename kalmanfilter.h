@@ -56,7 +56,7 @@ KalmanFilter<T>::KalmanFilter(T xx,T QQ, T RR){
 
 template <class T>
 void KalmanFilter<T>::update(T u,T y){
-  x_ = x_est + Ts/1000.0 * u;
+  x_ = x_est + Ts * u;
   P_bfr = P_aft + Q;
   g = P_bfr / (P_bfr + R);
   x_est = x_ + g * (y - x_);

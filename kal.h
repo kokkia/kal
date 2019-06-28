@@ -8,7 +8,7 @@
 #include "filter.h"
 
 //option
-//#include "nxtmotor.h"
-#include "stepping_motor.h"
+#include "nxtmotor.h"
+//#include "stepping_motor.h"
 
 #endif

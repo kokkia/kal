@@ -2,7 +2,7 @@
 #ifndef ___CONFIG_H
 #define ___CONFIG_H
 
-#define Ts 1//sampling time[ms]
+#define Ts 0.002//sampling time[ms]
 
 namespace kal{
 
