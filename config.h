@@ -2,7 +2,13 @@
 #ifndef ___CONFIG_H
 #define ___CONFIG_H
 
-#define Ts 0.001//sampling time[ms]
+#define ARDUINO
+
+#ifdef ARDUINO
+#define Ts 0.002//sampling time[ms]
+#else
+#define Ts 0.001
+#endif
 
 namespace kal{
 

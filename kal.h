@@ -6,9 +6,11 @@
 #include "utilize.h"
 #include "wave.h"
 #include "filter.h"
+#include "stepping_motor.h"
 
 //option
-//#include "nxtmotor.h"
-#include "stepping_motor.h"
+#ifdef ARDUINO
+#include "nxtmotor.h"
+#endif
 
 #endif
