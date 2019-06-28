@@ -4,6 +4,7 @@
 */
 #ifndef ___TRAJECTORY_H
 #define ___TRAJECTORY_H
+#include <math.h>
 
 //type
 #define STEP 0
@@ -76,7 +77,7 @@ T get(double now_time){
             ret_val = a*t + b; 
         }
         else if(type == COSIN){
-
+            ret_val = a *cos(2.0*PI/(interval*2.0) * t) + b;
         }
     }
     return ret_val;

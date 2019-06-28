@@ -1,6 +1,7 @@
 //convinient function
 #ifndef ___UTILIZE_H
 #define ___UTILIZE_H
+#include<math.h>
 
 #define DEG2RAD (PI/180.0)
 #define RAD2DEG (180.0/PI)
@@ -37,6 +38,16 @@ void dead_zone_compensate(T v_bfr,T v,T& x,T dead_zone){
       x -= dead_zone;
     }
   }
+}
+
+//不感帯フィルタ
+double threshold_filter(double x,double threshold,int n){
+  if( threshold == 0.0 ){
+    return x;
+  }
+  const double r = fabs(x) / threshold;
+  return ( r < 1.0 ) ?  pow( r , n ) * x : x;
+
 }
 
 
