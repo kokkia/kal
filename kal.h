@@ -11,6 +11,8 @@
 //option
 #ifdef ARDUINO
 #include "nxtmotor.h"
+#elif defined ESP32
+#include "nxtmotor_for_ESP.h"
 #endif
 
 #endif

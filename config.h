@@ -1,12 +1,17 @@
 //configulation
 #ifndef ___CONFIG_H
 #define ___CONFIG_H
+//使うコントローラを選択
+//#define ARDUINO
+#define ESP32
+//#define TITECH
 
-#define ARDUINO
-
+//Sampling Time
 #ifdef ARDUINO
 #define Ts 0.002//sampling time[ms]
-#else
+#elif defined ESP32
+#define Ts 
+#elif defined TITECH
 #define Ts 0.001
 #endif
 

@@ -1,5 +1,6 @@
-//kalman filter 
+//kalman filter for SISO system
 //@todo:MIMOに対応したい
+//@todo:EKFにも対応させる
 #ifndef ___KALMAN_FILTER_H
 #define ___KALMAN_FILTER_H
 #include "config.h"
