@@ -1,4 +1,5 @@
-//nxt motor controller 
+//nxt motor controller for arduino
+//外部割込みによるエンコーダカウント
 //@todo:nxtmotor class つくる
 
 #ifndef ___NXT_MOTOR_H
