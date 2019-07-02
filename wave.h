@@ -13,19 +13,19 @@ namespace kal{
 
 class wave{
   public:
-    int t;
+    double t;
     int type;//@todo:色々な波形を追加
     double ave;
     double amp;
     double f;
     double output;
     wave();
-    wave(double ave_in,double amp_in,double f_in);
+    wave(double ave_in,double amp_in,double f_in,int type = SIN);
     void update();
 };
 
 wave::wave(){
-  t=0;
+  t=0.0;
   ave=0.0;
   amp=0.0;
   f=0.0;
@@ -33,19 +33,28 @@ wave::wave(){
   type = SIN;
 }
 
-wave::wave(double ave_in,double amp_in,double f_in){
+wave::wave(double ave_in,double amp_in,double f_in,int type_in = SIN){
   ave=ave_in;
   amp=amp_in;
   f=f_in;
   output=0.0;
-  type = SIN;
+  type = type_in;
 }
 
 void wave::update(){
   t+=Ts;
   t = t%(int)(1.0/f);//tの∞積分を防止
-  if(type == SIN){
-    output=amp*sin(2.0*PI*f*t)+ave;
+  switch (type){
+  case CONST:
+    output = ave;
+    break;
+  case SIN:
+    output = amp*sin(2.0*PI*f*t) + ave;
+    break;
+  case TRIANGLE:
+    break;
+  default:
+    break;
   }
   
 }
