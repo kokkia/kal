@@ -20,7 +20,7 @@ class wave{
     double f;
     double output;
     wave();
-    wave(double ave_in,double amp_in,double f_in,int type = SIN);
+    wave(double ave_in,double amp_in,double f_in,int type);
     void update();
 };
 
@@ -43,7 +43,7 @@ wave::wave(double ave_in,double amp_in,double f_in,int type_in = SIN){
 
 void wave::update(){
   t+=Ts;
-  t = t%(int)(1.0/f);//tの∞積分を防止
+  //t = t%((int)(1.0/f));//tの∞積分を防止
   switch (type){
   case CONST:
     output = ave;
@@ -51,7 +51,7 @@ void wave::update(){
   case SIN:
     output = amp*sin(2.0*PI*f*t) + ave;
     break;
-  case TRIANGLE:
+  case TRIANGLE://@todo
     break;
   default:
     break;

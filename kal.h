@@ -9,7 +9,7 @@
 #include "stepping_motor.h"
 
 //option
-#ifdef ARDUINO
+#ifdef ARDUINO_KAL
 #include "nxtmotor.h"
 #elif defined ESP32
 #include "nxtmotor_for_ESP.h"

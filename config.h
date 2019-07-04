@@ -1,4 +1,4 @@
-//configulation
+//robot configulation
 #ifndef ___CONFIG_H
 #define ___CONFIG_H
 //使うコントローラを選択
@@ -7,13 +7,13 @@
 //#define TITECH
 
 //Sampling Time
-#ifdef ARDUINO
-#define Ts 0.002//sampling time[ms]
-#elif defined ESP32
-#define Ts 
-#elif defined TITECH
-#define Ts 0.001
-#endif
+#ifdef ARDUINO_KAL
+// #define Ts 0.002//sampling time[ms]
+ #elif defined ESP32
+#define Ts 0.005
+ #elif defined TITECH
+// #define Ts 0.001
+ #endif
 
 namespace kal{
 

@@ -1,5 +1,4 @@
-//esp32でnxtモータを制御するヘッダ
-//未チェック
+//nxtmotor controller for esp32
 #ifndef ___NXTMOTOR_FOR_ESP_H
 #define ___NXTMOTOR_FOR_ESP_H
 #include<arduino.h>
@@ -8,7 +7,7 @@
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
-#define MAX_VOLTAGE 9.0//最大電圧
+#define MAX_VOLTAGE 5.0//最大電圧
 
 namespace kal{
 
@@ -25,7 +24,7 @@ public:
 
     nxtmotor();
     void GPIO_setup(uint8_t pin_fwd,uint8_t pin_bwd);
-    void PWM_setup(uint8_t pin_PWM,uint8_t channel,double PWM_freq = PWM_CAREER_FREQ,uint8_t PWM_resolution_bit = PWM_RESOLUTIONBIT);
+    void PWM_setup(uint8_t pin_PWM,uint8_t channel,double PWM_freq,uint8_t PWM_resolution_bit);
     void drive(double u);
 
     //pulse_counter関連
@@ -58,7 +57,7 @@ void nxtmotor::PWM_setup(   uint8_t pin_PWM,
     //使用するタイマーのチャネルと周波数を設定
     ledcSetup(channel, PWM_freq, PWM_resolution_bit);
     // Pinをチャネルへ接続
-    ledcAttachPin(pin, channel);
+    ledcAttachPin(pin_PWM, channel);
     //this->PWM_resolution = pow(2,PWM_resolution_bit);
 }
 
@@ -79,6 +78,7 @@ void nxtmotor::drive(double u/*volt*/){
     digitalWrite(pin_bwd,LOW);
   }
   //analogWrite(PWMA,duty);
+  ledcWrite(channel, duty);
 }
 
 //2相インクリメンタルエンコーダ
@@ -118,11 +118,12 @@ void nxtmotor::encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase/*A相*/,u
     pcnt_counter_resume(pcnt_unit);
 }
 
-void nxtmotor::get_angle(pcnt_unit_t pcnt_unit,double& angle){
+void nxtmotor::get_angle(pcnt_unit_t pcnt_unit,double& ret_angle){
     int16_t count;
-    pcnt_get_counter_value(pcnt_unit &count);
+    pcnt_get_counter_value(pcnt_unit, &count);
     angle = (double)count / 2.0 * DEG2RAD;
     angle_deg = (double)count / 2.0;
+    ret_angle = angle;
 }
 
 }
