@@ -1,4 +1,5 @@
 //filter and differentiator
+//@todo:配列つくれるように変更すべき
 #ifndef ___FILTER_H
 #define ___FILTER_H
 #include "config.h"
@@ -35,7 +36,7 @@ public:
   double fc = 1.0;//カットオフ周波数
   LPF();
   LPF(T x_in, double fc_in);
-  void update(T xm);
+  void update(T xm,T& ret_xm);
 };
 
 template<class T>
@@ -45,9 +46,10 @@ LPF<T>::LPF(T x_in, double fc_in) : filter_base<T>(x_in){
 
 
 template <class T>
-void LPF<T>::update(T xm){
+void LPF<T>::update(T xm,T& ret_xm){
   double Tc = 1.0/(2*PI*fc);
   this->x=Ts/(Ts+2*Tc)*xm +2*Tc/(Ts+2*Tc)*this->x;
+  ret_xm = this->x;
 }
 
 
@@ -58,18 +60,19 @@ public:
   double fc = 1.0;//カットオフ周波数
   HPF();
   HPF(T x_in, double fc_in);
-  void update(T xm);
+  void update(T xm,T& ret_xm);
 };
 
 template<class T>
 HPF<T>::HPF(T x_in, double fc_in) : filter_base<T>(x_in){
-  fc=fc_in;
+  fc = fc_in;
 }
 
 template <class T>
-void HPF<T>::update(T xm){
+void HPF<T>::update(T xm,T& ret_xm){
   double Tc = 1.0/(2*PI*fc);
-  this->x=2.0*Tc/(Ts+2.0*Tc)*xm - Ts/(Ts+2.0*Tc)*this->x;
+  this->x = 2.0*Tc/(Ts+2.0*Tc)*xm - Ts/(Ts+2.0*Tc)*this->x;
+  ret_xm = this->xm;
 }
 
 
@@ -78,10 +81,10 @@ void HPF<T>::update(T xm){
 template <class T>
 class Diff : public filter_base<T>{
 public:
-  double fc=1.0;//カットオフ周波数
+  double fc = 1.0;//カットオフ周波数
   Diff();
   Diff(T x_in, double fc_in);
-  void update(T xm);
+  void update(T xm,T& dxm);
 };
 
 template<class T>
@@ -90,11 +93,11 @@ Diff<T>::Diff(T x_in, double fc_in) : filter_base<T>(x_in){
 }
 
 template <class T>
-void Diff<T>::update(T xm){//@todo:普通にreturnした方がコンパクトにできそう
+void Diff<T>::update(T xm/*現在値*/,T& dxm/*微分値*/){//@todo:普通にreturnした方がコンパクトにできそう
   double Tc = 1.0/(2.0*PI*fc);
-  this->x=(xm-this->x_bfr+(Tc-Ts/2.0)*this->x)/(Ts/2.0+Tc);
-  //this->x=(xm-this->x_bfr)/((double)Ts);
-  this->x_bfr=xm;
+  this->x = (xm-this->x_bfr+(Tc-Ts/2.0)*this->x)/(Ts/2.0+Tc);
+  dxm = this->x;
+  this->x_bfr = xm;
 }
 
 }
