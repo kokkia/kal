@@ -9,6 +9,7 @@
 #define PWM_RESOLUTION_BIT 8//bit
 #define MAX_VOLTAGE 5.0//最大電圧
 
+
 namespace kal{
 
 class nxtmotor{
