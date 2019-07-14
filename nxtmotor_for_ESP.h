@@ -50,21 +50,21 @@ void nxtmotor::PWM_setup(   uint8_t pin_PWM,
                             uint8_t channel,
                             double PWM_freq = PWM_CAREER_FREQ,
                             uint8_t PWM_resolution_bit = PWM_RESOLUTION_BIT){
-    this->pin_PWM = pin_PWM;
-    this->channel = channel;
-    this->PWM_freq = PWM_freq;
-    this->PWM_resolution_bit = PWM_resolution_bit;
-    //使用するタイマーのチャネルと周波数を設定
-    ledcSetup(channel, PWM_freq, PWM_resolution_bit);
-    // Pinをチャネルへ接続
-    ledcAttachPin(pin_PWM, channel);
-    //this->PWM_resolution = pow(2,PWM_resolution_bit);
+  this->pin_PWM = pin_PWM;
+  this->channel = channel;
+  this->PWM_freq = PWM_freq;
+  this->PWM_resolution_bit = PWM_resolution_bit;
+  //使用するタイマーのチャネルと周波数を設定
+  ledcSetup(channel, PWM_freq, PWM_resolution_bit);
+  // Pinをチャネルへ接続
+  ledcAttachPin(pin_PWM, channel);
+  //this->PWM_resolution = pow(2,PWM_resolution_bit);
 }
 
 //駆動
 void nxtmotor::drive(double u/*volt*/){
-   range(-MAX_VOLTAGE,MAX_VOLTAGE,u);
-   int duty = 255 * fabs(u) / MAX_VOLTAGE;//PWM_resolution-1
+  range(-MAX_VOLTAGE,MAX_VOLTAGE,u);
+  int duty = 255 * fabs(u) / MAX_VOLTAGE;//PWM_resolution-1
   if(u > 0.0){//順回転
     digitalWrite(pin_fwd,HIGH);
     digitalWrite(pin_bwd,LOW);

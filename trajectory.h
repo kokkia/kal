@@ -15,9 +15,6 @@ namespace kal{
 
 template<class T>
 class trajectory{
-private:
-    T a,b,c,d;
-
 public:
     int type = 0;
     double start_time = 0.0;
@@ -28,9 +25,13 @@ public:
     double interval;
     T L;
     bool goal_flag = 0;
+    T a;
+    T b;
+    T c;
+    T d;
     trajectory();
-    void creat(T start_val_in,T goal_val_in,double start_time_in,double interval_in,int tyoe_in);
-    T get();
+    void creat(T start_val_in,T goal_val_in,double start_time_in,double interval_in,int type_in);
+    T get(double now_time);
 };
 
 template<class T>
@@ -38,7 +39,7 @@ trajectory<T>::trajectory(){
 }
 
 template<class T>
-void trajectory<T>::creat(T start_val_in,T goal_val_in,double start_time_in,double interval_in,int tyoe_in=0){
+void trajectory<T>::creat(T start_val_in,T goal_val_in,double start_time_in,double interval_in,int type_in){
     start_val = start_val_in;
     goal_val = goal_val_in;
     start_time = start_time_in;
@@ -62,7 +63,7 @@ void trajectory<T>::creat(T start_val_in,T goal_val_in,double start_time_in,doub
 }
 
 template<class T>
-T get(double now_time){
+T trajectory<T>::get(double now_time){
     T ret_val;
     t = now_time -start_time;
     if(now_time > goal_time){

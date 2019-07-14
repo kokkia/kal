@@ -7,6 +7,7 @@
 #include "wave.h"
 #include "filter.h"
 #include "stepping_motor.h"
+#include "trajectory.h"
 
 //option
 #ifdef ARDUINO_KAL

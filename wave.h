@@ -52,6 +52,7 @@ void wave::update(){
     output = amp*sin(2.0*PI*f*t) + ave;
     break;
   case TRIANGLE://@todo
+    output = amp/(1.0/f/4) * t + ave;
     break;
   default:
     break;

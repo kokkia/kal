@@ -9,7 +9,7 @@ class stepping_motor{
     public:
     double n;//分解能P/R
     double v;//velocity[rad/s]
-    double x;
+    double x;//position[rad]
     bool dir = 1;//回転方向1:forward,0:backward
     stepping_motor(double n_in);
     void set_direction(bool dir_in);
