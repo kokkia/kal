@@ -5,6 +5,8 @@
 #include "config.h"
 #include "utilize.h"
 
+#define FC_Diff 100//カットオフ
+
 namespace kal{
 
 //filter base
@@ -86,6 +88,11 @@ public:
   Diff(T x_in, double fc_in);
   void update(T xm,T& dxm);
 };
+
+template<class T>
+Diff<T>::Diff() : filter_base<T>(){
+  fc = FC_Diff;
+}
 
 template<class T>
 Diff<T>::Diff(T x_in, double fc_in) : filter_base<T>(x_in){
