@@ -29,10 +29,12 @@ public:
     void drive(double u);
 
     //pulse_counter関連
+    pcnt_unit_t unit;
     double angle = 0.0;//回転角度[rad]
     double angle_deg = 0.0;//回転角度[deg]
     void encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase,uint8_t pin_B_phase);
-    void get_angle(pcnt_unit_t pcnt_unit,double& angle);
+    //void get_angle(pcnt_unit_t pcnt_unit,double& angle);
+    void get_angle(double& angle);
 };
 
 nxtmotor::nxtmotor(){//@todo::ここでPWM_setupできるようにするか検討
@@ -87,6 +89,7 @@ void nxtmotor::drive(double u/*volt*/){
 void nxtmotor::encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase/*A相*/,uint8_t pin_B_phase/*B相*/){
     pcnt_config_t pcnt_confA;
     pcnt_config_t pcnt_confB;
+    unit = pcnt_unit;
 
     pcnt_confA.unit = pcnt_unit;
     pcnt_confA.channel = PCNT_CHANNEL_0;
@@ -119,9 +122,16 @@ void nxtmotor::encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase/*A相*/,u
     pcnt_counter_resume(pcnt_unit);
 }
 
-void nxtmotor::get_angle(pcnt_unit_t pcnt_unit,double& ret_angle){
+// void nxtmotor::get_angle(pcnt_unit_t pcnt_unit,double& ret_angle){
+//     int16_t count;
+//     pcnt_get_counter_value(pcnt_unit, &count);
+//     angle = (double)count / 2.0 * DEG2RAD;
+//     angle_deg = (double)count / 2.0;
+//     ret_angle = angle;
+// }
+void nxtmotor::get_angle(double& ret_angle){
     int16_t count;
-    pcnt_get_counter_value(pcnt_unit, &count);
+    pcnt_get_counter_value(unit, &count);
     angle = (double)count / 2.0 * DEG2RAD;
     angle_deg = (double)count / 2.0;
     ret_angle = angle;
