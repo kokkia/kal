@@ -8,14 +8,14 @@
 
 namespace kal{
 
-template <class T>
+template <class T1,class T2,class T3,class T4>
 class StateSpace{
-  T A;
-  T B;
-  T C;
-  T D;
+  T1 A;
+  T2 B;
+  T3 C;
+  T4 D;
 public:
-  void set_eq(T A,T B,T C,T D);
+  void set_eq(T1 A,T2 B,T3 C,T4 D);
 };
 
 template <class T>
@@ -37,9 +37,12 @@ public:
 };
 
 
-template <class T>
-void StateSpace<T>::set_eq(T A,T B,T C,T D){
-  
+template <class T1,class T2,class T3,class T4>
+void StateSpace<T1,T2,T3,T4>::set_eq(T1 A,T2 B,T3 C,T4 D){
+  this->A  = A;
+  this->B  = B;
+  this->C  = C;
+  this->D  = D;
 }
 template <class T>
 KalmanFilter<T>::KalmanFilter(){

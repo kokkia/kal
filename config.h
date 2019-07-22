@@ -2,18 +2,19 @@
 #ifndef ___CONFIG_H
 #define ___CONFIG_H
 //使うコントローラを選択
-//#define ARDUINO
+//#define ARDUINO_KAL
 #define ESP32
 //#define TITECH
+//#define EIGEN_KAL
 
 //Sampling Time
 #ifdef ARDUINO_KAL
 // #define Ts 0.002//sampling time[ms]
- #elif defined ESP32
+#elif defined ESP32
 #define Ts 0.005
- #elif defined TITECH
-// #define Ts 0.001
- #endif
+#elif defined TITECH
+#define Ts 0.001
+#endif
 
 namespace kal{
 
