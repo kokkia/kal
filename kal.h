@@ -19,6 +19,7 @@
 
 #ifdef EIGEN_KAL
 #include "eigen3.3.7/Eigen/Core"
+#include "eigen3.3.7/Eigen/LU"
 #endif
 
 #endif

@@ -1,5 +1,4 @@
 //filter and differentiator
-//@todo:配列つくれるように変更すべき
 #ifndef ___FILTER_H
 #define ___FILTER_H
 #include "config.h"
