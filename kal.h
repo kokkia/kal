@@ -17,4 +17,8 @@
 #elif defined TITECH
 #endif
 
+#ifdef EIGEN_KAL
+#include "eigen3.3.7/Eigen/Core"
+#endif
+
 #endif

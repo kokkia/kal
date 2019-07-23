@@ -1,7 +1,6 @@
 #ifndef ___STEPPING_MOTOR_H
 #define ___STEPPING_MOTOR_H
-
-#define PI 3.14159265359
+#include "config.h"
 
 namespace kal{
 

@@ -4,7 +4,8 @@
 */
 #ifndef ___TRAJECTORY_H
 #define ___TRAJECTORY_H
-//#include <math.h>
+#include <math.h>
+#include "config.h"
 
 //type
 #define STEP 0
