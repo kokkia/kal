@@ -8,6 +8,7 @@
 #include "filter.h"
 #include "stepping_motor.h"
 #include "trajectory.h"
+#include "impedance_control.h"
 
 //option
 #ifdef ARDUINO_KAL
