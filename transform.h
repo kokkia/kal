@@ -1,5 +1,5 @@
-#ifndef KWS_KAL_TRANSFORM_H_
-#define KWS_KAL_TRANSFORM_H_
+#ifndef KAL_TRANSFORM_H_
+#define KAL_TRANSFORM_H_
 #include "config.h"
 #ifdef X2_KAL
 #include<eigen3/Eigen/Dense>

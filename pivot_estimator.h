@@ -13,12 +13,12 @@
 bool inserted_flag = 0;//挿入されているかいないか
 bool fr_flag = 0;//手先に負荷があるかないか
 
-void lpf(double T,double x/*過去*/, double& y/*実測->lpf*/){
-    //Tsはマクロ
-    double A=Ts/(Ts+2*T);
-    double B=2*T/(Ts+2*T);
-    y=A*x+B*y;
-}
+// void lpf(double T,double x/*過去*/, double& y/*実測->lpf*/){
+//     //Tsはマクロ
+//     double A=Ts/(Ts+2*T);
+//     double B=2*T/(Ts+2*T);
+//     y=A*x+B*y;
+// }
 
 // int sgn(double x){
 //   if( fabs(x) < 1e-9 )
@@ -67,7 +67,6 @@ void pibot_estimation(Eigen::Vector3d Pw,Eigen::Matrix3d Rw,Eigen::Vector3d& Pp,
     if(d>430){d=430;}
 
     Pp = Pw + (-1)*d*n;
-    //Pp= 0.9999 * Pp_b + 0.0001 * Pp;//LPF
     dd = d;
 
     cnt2++;
