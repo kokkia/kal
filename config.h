@@ -5,7 +5,8 @@
 //#define ARDUINO_KAL
 //#define ESP32
 #define TITECH
-#define EIGEN_KAL
+//#define EIGEN_KAL
+#define X2_KAL
 
 //Sampling Time
 #ifdef ARDUINO_KAL
@@ -16,7 +17,9 @@
 #define Ts 0.001
 #endif
 
+#ifndef X2_KAL
 #define PI 3.14159265359
+#endif
 
 namespace kal{
 
