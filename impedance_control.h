@@ -20,9 +20,9 @@ class impedance_control{
 public:
     RobotData<T> zero;//基準位置   
     //desired imoedance
-    Tmat Md;
-    Tmat Cd;//N/mm/s
-    Tmat Kd;//N/mm
+    Tmat Md;//N/m/s^2=kg
+    Tmat Cd;//N/m/s
+    Tmat Kd;//N/m
     //admitance control
     RobotData<T> ref;
     RobotData<T> ref_b1;
@@ -64,12 +64,13 @@ void impedance_control<T,Tmat>::impedance_out(RobotData<T> state,T fref,T& f){
 template<class T,class Tmat>
 void impedance_control<T,Tmat>::admitance_out(T fext,T fref,RobotData<T>& ref){//速度出力
     this->fext = fext;
-    //ref.dx = 1.0/(4*Md+2*Ts*Cd+Kd*Ts*Ts)*(2*Ts*(fext-this->fext_b2)-(Kd*Ts*Ts-8*Md)*this->ref_b1.dx-(4*Md-2*Ts*Cd+Kd*Ts*Ts)*this->ref_b2.dx);
-    ref.dx = 1.0/(2*this->Cd+this->Kd*Ts)*((2*this->Cd-this->Kd*Ts)*this->ref_b1.dx + fext + this->fext_b1);
+    this->ref.dx = 1.0/(4*Md+2*Ts*Cd+Kd*Ts*Ts)*(2*Ts*(fext-this->fext_b2)-(Kd*Ts*Ts-8*Md)*this->ref_b1.dx-(4*Md-2*Ts*Cd+Kd*Ts*Ts)*this->ref_b2.dx);
+    
     this->fext_b2 = this->fext_b1;
     this->fext_b1 = fext;
     this->ref_b2 = this->ref_b1;
-    this->ref_b1 = ref;
+    this->ref_b1 = this->ref;
+    ref.dx = this->ref.dx*1000.0;//mm/sに直す
 }
 
 }
