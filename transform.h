@@ -4,7 +4,7 @@
 #ifdef X2_KAL
 #include<eigen3/Eigen/Dense>
 #else
-#include"../Eigen/Dense"
+#include"eigen3.3.7/Eigen/Dense"
 #endif
 
 namespace kal{

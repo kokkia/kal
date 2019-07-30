@@ -6,7 +6,7 @@
 #include "utilize.h"
 #include "wave.h"
 #include "filter.h"
-//#include "stepping_motor.h"
+#include "stepping_motor.h"
 #include "trajectory.h"
 
 //option
@@ -20,6 +20,7 @@
 #ifdef EIGEN_KAL
 #include "eigen3.3.7/Eigen/Core"
 #include "eigen3.3.7/Eigen/LU"
+#include"transform.h"
 #endif
 
 #ifdef X2_KAL
