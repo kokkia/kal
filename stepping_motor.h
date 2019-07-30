@@ -12,7 +12,7 @@ class stepping_motor{
     double n = R2P;//分解能P/R
     double v;//velocity[rad/s]
     double x;//position[rad]
-    bool dir = 1;//回転方向1:forward,0:backward
+    bool dir = 1;//回転方向
     stepping_motor(double n_in);
     void set_direction(bool dir_in);
     double velocity2pulse(double v);
@@ -37,7 +37,7 @@ double stepping_motor::velocity2pulse(double v_in){
     return n * v / (2 * PI);
 }
 
-void stepping_motor::velocity_control(double v,double& freq,bool& dir){
+void stepping_motor::velocity_control(double v/*角速度*/,double& freq,bool& dir){
     if(v>=0){
         dir = 1;
     }
