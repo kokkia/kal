@@ -24,26 +24,40 @@
 
 namespace kal{
 
+template<class T>
 class RobotData{
 public:
-  double phi;
-  double dphi;
-  double d2phi;
-  double theta;
-  double dtheta;
-  double d2theta;
+  T phi;
+  T dphi;
+  T d2phi;
+  T theta;
+  T dtheta;
+  T d2theta;
+  T x;
+  T dx;
+  T d2x;
+  T q;
+  T dq;
+  T d2q;
   
   RobotData();  
   
 };
 
-RobotData::RobotData(){
+template<class T>
+RobotData<T>::RobotData(){
   phi = 0.0;
   dphi = 0.0;
   d2phi = 0.0;
   theta = 0.0;
   dtheta = 0.0;
   d2theta = 0.0;
+  x = 0.0;
+  dx = 0.0;
+  d2x = 0.0;
+  q = 0.0;
+  dq = 0.0;
+  d2q = 0.0;
 }
 
 }
