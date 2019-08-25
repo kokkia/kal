@@ -3,9 +3,9 @@
 #define ___CONFIG_H
 //使うコントローラを選択
 //#define ARDUINO_KAL
-//#define ESP32
-#define TITECH
-#define EIGEN_KAL
+#define ESP32
+//#define TITECH
+//#define EIGEN_KAL
 //#define X2_KAL
 
 //Sampling Time
