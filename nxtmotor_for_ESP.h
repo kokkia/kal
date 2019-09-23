@@ -7,7 +7,7 @@
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
-#define MAX_VOLTAGE 5.0//最大電圧
+#define MAX_VOLTAGE 9.0//最大電圧
 
 
 namespace kal{
