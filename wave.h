@@ -35,7 +35,7 @@ wave::wave(){
 
 wave::wave(double ave_in,double amp_in,double f_in,int type_in = SIN){
   ave=ave_in;
-  amp=amp_in;
+  amp=fabs(amp_in);
   f=f_in;
   output=0.0;
   type = type_in;
@@ -51,8 +51,19 @@ void wave::update(){
   case SIN:
     output = amp*sin(2.0*PI*f*t) + ave;
     break;
-  case TRIANGLE://@todo
-    output = amp/(1.0/f/4) * t + ave;
+  case TRIANGLE://@todo:動作未確認
+    if(t>1.0/f){
+      t = 0.0;
+    }
+    if(0.0<=t && t<=1.0/4.0/f){
+      output = amp/(1.0/f/4) * t + ave;  
+    }
+    else if(1.0/4.0/f<t && t<=3.0/4.0/f){
+      output = -amp/(1.0/f/4) * t + (ave + amp);  
+    }
+    else if(3.0/4.0/f<t && t<=1.0/f){
+      output = amp/(1.0/f/4) * t + (ave - amp);
+    }
     break;
   default:
     break;

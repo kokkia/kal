@@ -1,3 +1,5 @@
+//robotの運動学計算用ライブラリ
+//未完成
 #ifndef KWS_KAL_KINEMATICS2_H_
 #define KWS_KAL_KINEMATICS2_H_
 #include<iostream>
