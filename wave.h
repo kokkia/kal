@@ -51,18 +51,18 @@ void wave::update(){
   case SIN:
     output = amp*sin(2.0*PI*f*t) + ave;
     break;
-  case TRIANGLE://@todo:動作未確認
-    if(t>1.0/f){
+  case TRIANGLE://@todo:動作確認済
+    if(t>=1.0/f){
       t = 0.0;
     }
     if(0.0<=t && t<=1.0/4.0/f){
       output = amp/(1.0/f/4) * t + ave;  
     }
     else if(1.0/4.0/f<t && t<=3.0/4.0/f){
-      output = -amp/(1.0/f/4) * t + (ave + amp);  
+      output = -amp/(1.0/f/4) * t + (ave + 2*amp);  
     }
     else if(3.0/4.0/f<t && t<=1.0/f){
-      output = amp/(1.0/f/4) * t + (ave - amp);
+      output = amp/(1.0/f/4) * t + (ave - 4*amp);
     }
     break;
   default:
