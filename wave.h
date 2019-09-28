@@ -59,10 +59,10 @@ void wave::update(){
       output = amp/(1.0/f/4) * t + ave;  
     }
     else if(1.0/4.0/f<t && t<=3.0/4.0/f){
-      output = -amp/(1.0/f/4) * t + (ave + 2*amp);  
+      output = -amp/(1.0/f/4.0) * t + (ave + 2.0*amp);  
     }
     else if(3.0/4.0/f<t && t<=1.0/f){
-      output = amp/(1.0/f/4) * t + (ave - 4*amp);
+      output = amp/(1.0/f/4.0) * t + (ave - 4.0*amp);
     }
     break;
   default:
