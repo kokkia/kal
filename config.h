@@ -27,15 +27,18 @@ namespace kal{
 template<class T>
 class RobotData{
 public:
+  //姿勢
   T phi;
   T dphi;
   T d2phi;
   T theta;
   T dtheta;
   T d2theta;
+  //位置
   T x;
   T dx;
   T d2x;
+  //関節用
   T q;
   T dq;
   T d2q;
