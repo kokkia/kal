@@ -4,15 +4,20 @@
 #include<arduino.h>
 #include "utilize.h"
 #include "driver/pcnt.h"
+#include "joint_controller.h"
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
 #define MAX_VOLTAGE 9.0//最大電圧
 
+// #define KP 30.0
+// #define KD 5.0
+// #define KDD 0.05
+
 
 namespace kal{
 
-class nxtmotor{
+class nxtmotor : public joint_controller{
 public:
     //PWM関連
     uint8_t pin_fwd;//方向制御pin
@@ -127,6 +132,7 @@ void nxtmotor::get_angle(double& ret_angle){
     angle = (double)count / 2.0 * DEG2RAD;//radian
     angle_deg = (double)count / 2.0;//degree
     ret_angle = angle;
+    state.q = angle;
 }
 
 }
