@@ -1,5 +1,4 @@
 //joint_controller
-//構成検討中，未実装
 #ifndef ___JOINT_CONTROLLER_H
 #define ___JOINT_CONTROLLER_H
 #include "config.h"
