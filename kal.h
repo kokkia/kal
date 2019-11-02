@@ -10,10 +10,10 @@
 #include "trajectory.h"
 #include "impedance_control.h"
 #include "joint_controller.h"
-
+#include "two_wheel_drive.h"
 //未完成
 //#include "kinematics.h"
-//#include "two_wheel_drive.h"
+
 
 //option
 #ifdef ARDUINO_KAL

@@ -132,7 +132,8 @@ void nxtmotor::get_angle(double& ret_angle){
     angle = (double)count / 2.0 * DEG2RAD;//radian
     angle_deg = (double)count / 2.0;//degree
     ret_angle = angle;
-    state.q = angle;
+    //state.q = angle;
+    //@todo: ここで微分までやるか検討
 }
 
 }

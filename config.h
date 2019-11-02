@@ -38,6 +38,9 @@ public:
   T x;
   T dx;
   T d2x;
+  T y;
+  T dy;
+  T d2y;
   //関節用
   T q;
   T dq;
@@ -58,6 +61,9 @@ RobotData<T>::RobotData(){
   x = 0.0;
   dx = 0.0;
   d2x = 0.0;
+  y = 0.0;
+  dy = 0.0;
+  d2y = 0.0;
   q = 0.0;
   dq = 0.0;
   d2q = 0.0;
