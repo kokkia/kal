@@ -9,10 +9,10 @@
 #include "stepping_motor.h"
 #include "trajectory.h"
 #include "impedance_control.h"
+#include "joint_controller.h"
 
 //未完成
 //#include "kinematics.h"
-//#include "joint_controller.h"
 //#include "two_wheel_drive.h"
 
 //option

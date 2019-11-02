@@ -8,6 +8,7 @@
 #define CONST 0
 #define SIN 1
 #define TRIANGLE 2
+#define CHARPSIN 3
 
 namespace kal{
 
@@ -39,6 +40,9 @@ wave::wave(double ave_in,double amp_in,double f_in,int type_in = SIN){
   f=f_in;
   output=0.0;
   type = type_in;
+  if(type == CHARPSIN){
+    f = 0.0;
+  }
 }
 
 void wave::update(){
@@ -51,7 +55,7 @@ void wave::update(){
   case SIN:
     output = amp*sin(2.0*PI*f*t) + ave;
     break;
-  case TRIANGLE://@todo:動作確認済
+  case TRIANGLE:
     if(t>=1.0/f){
       t = 0.0;
     }
@@ -63,6 +67,14 @@ void wave::update(){
     }
     else if(3.0/4.0/f<t && t<=1.0/f){
       output = amp/(1.0/f/4.0) * t + (ave - 4.0*amp);
+    }
+    break;
+  case CHARPSIN:
+    f += 0.0002;
+    output = amp*sin(2.0*PI*f*t) + ave;
+    if(f>5.0){
+      f = 0.0;
+      t = 0.0;
     }
     break;
   default:

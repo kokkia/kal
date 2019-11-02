@@ -79,15 +79,14 @@ double joint_controller::feedforward_control(void){
 
 double joint_controller::position_control(void){
     output = Kp * (ref.q - state.q) + Kd * (ref.dq - state.dq) + Ki * integral;
-    integral += (ref.q - state.q) * Ts;
+    integral += (ref.q - state.q) * Ts;//@todo: ワインドアップ対策してない
     return output;
 }
 
 double joint_controller::velocity_control(void){
-    //output = Kp * (ref.q - state.q) + Kd * (ref.dq - state.dq) + Kdd * (ref.d2q - state.d2q);
     output = Kvi * integral_v + Kvp * (ref.dq - state.dq) + Kvd * (ref.d2q - state.d2q);
     //@todo:ここでintegralした方がよいのか検討
-    integral_v += (ref.dq - state.dq) * Ts;
+    integral_v += (ref.dq - state.dq) * Ts;//@todo: ワインドアップ対策してない
     return output;
 }
 
