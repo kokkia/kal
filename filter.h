@@ -14,6 +14,8 @@ class filter_base{
 public:
   T x;
   T x_bfr;
+  T y;
+  T y_bfr;
   void update();
   filter_base();
   filter_base(T x_in);    
@@ -23,11 +25,14 @@ template <class T>
 filter_base<T>::filter_base(){
   x=0.0;
   x_bfr=0.0;
+  y_bfr=0.0;
 }
 template <class T>
 filter_base<T>::filter_base(T x_in){
   x=x_in;
   x_bfr=x_in;
+  y = 0.0;
+  y_bfr=0.0;
 }
 
 //LPF
@@ -42,15 +47,18 @@ public:
 
 template<class T>
 LPF<T>::LPF(T x_in, double fc_in) : filter_base<T>(x_in){
-  fc=fc_in;
+  fc = fc_in;
+  this->y = x_in;
 }
 
 
 template <class T>
 void LPF<T>::update(T xm,T& ret_xm){
   double Tc = 1.0/(2*PI*fc);
-  this->x=Ts/(Ts+2*Tc)*xm +2*Tc/(Ts+2*Tc)*this->x;
-  ret_xm = this->x;
+  //this->x=Ts/(Ts+2*Tc)*xm +2*Tc/(Ts+2*Tc)*this->x;
+  this->y=Ts/(Ts+2*Tc)*xm + Ts/(Ts+2*Tc)*this->x - (Ts-2*Tc)/(Ts+2*Tc)*this->y;  
+  this->x = xm;
+  ret_xm = this->y;
 }
 
 
@@ -67,13 +75,16 @@ public:
 template<class T>
 HPF<T>::HPF(T x_in, double fc_in) : filter_base<T>(x_in){
   fc = fc_in;
+  this->y = x_in;
 }
 
 template <class T>
 void HPF<T>::update(T xm,T& ret_xm){
   double Tc = 1.0/(2*PI*fc);
-  this->x = 2.0*Tc/(Ts+2.0*Tc)*xm - Ts/(Ts+2.0*Tc)*this->x;
-  ret_xm = this->xm;
+  //this->x = 2.0*Tc/(Ts+2.0*Tc)*xm - Ts/(Ts+2.0*Tc)*this->x;
+  this->y = 2.0*Tc/(Ts+2.0*Tc)*xm - 2.0*Tc/(Ts+2.0*Tc)*this->x - (Ts-2.0*Tc)/(Ts+2.0*Tc)*this->y;
+  this->x = xm;
+  ret_xm = this->y;
 }
 
 
