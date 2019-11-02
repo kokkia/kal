@@ -70,7 +70,7 @@ void wave::update(){
     }
     break;
   case CHARPSIN:
-    f += 0.0002;
+    f += 0.0005;
     output = amp*sin(2.0*PI*f*t) + ave;
     if(f>5.0){
       f = 0.0;
