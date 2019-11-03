@@ -1,4 +1,4 @@
-//filter and differentiator
+//filter and differentiator library
 #ifndef ___FILTER_H
 #define ___FILTER_H
 #include "config.h"
@@ -86,8 +86,6 @@ void HPF<T>::update(T xm,T& ret_xm){
   this->x = xm;
   ret_xm = this->y;
 }
-
-
 
 //differentiator
 template <class T>

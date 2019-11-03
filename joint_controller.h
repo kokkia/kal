@@ -8,10 +8,10 @@ namespace kal{
 class joint_controller{
     public:
         //fb_param
-        double Kp;
-        double Ki;
-        double Kd;
-        double Kdd = 0.0;//基本使わない
+        double Kpp;
+        double Kpi;
+        double Kpd;
+        double Kpdd = 0.0;//基本使わない
         double Kvp;
         double Kvi;
         double Kvd;
@@ -48,10 +48,10 @@ class joint_controller{
 
 };
 
-void joint_controller::set_fb_param(double Kp,double Ki,double Kd){
-    this->Kp = Kp;
-    this->Ki = Ki;
-    this->Kd = Kd;
+void joint_controller::set_fb_param(double Kpp,double Kpi,double Kpd){
+    this->Kpp = Kpp;
+    this->Kpi = Kpi;
+    this->Kpd = Kpd;
 }
 
 void joint_controller::set_fb_v_param(double Kvp,double Kvi,double Kvd){
@@ -77,7 +77,7 @@ double joint_controller::feedforward_control(void){
 }
 
 double joint_controller::position_control(void){
-    output = Kp * (ref.q - state.q) + Kd * (ref.dq - state.dq) + Ki * integral;
+    output = Kpp * (ref.q - state.q) + Kpd * (ref.dq - state.dq) + Kpi * integral;
     integral += (ref.q - state.q) * Ts;//@todo: ワインドアップ対策してない
     return output;
 }
