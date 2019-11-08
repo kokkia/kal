@@ -1,5 +1,5 @@
-#ifndef ___TWO_WHEEL_DRIVE_H
-#define ___TWO_WHEEL_DRIVE_H
+#ifndef ___COLOR_SENSOR_H
+#define ___COLOR_SENSOR_H
 #include<Wire.h>
 #include "config.h"
 #include "utilize.h"
@@ -54,7 +54,7 @@ void color_sensor::I2C_setup(uint8_t sda_pin, uint8_t scl_pin, int num){
     }
 }
 
-void::color_sensor::read_color(){
+void color_sensor::read_color(){
     if(num == 0){
         int h,l;
         Wire.beginTransmission(0x2A);
