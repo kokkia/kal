@@ -11,6 +11,7 @@
 #include "impedance_control.h"
 #include "joint_controller.h"
 #include "two_wheel_drive.h"
+#include "color_sensor.h"
 //未完成
 //#include "kinematics.h"
 
