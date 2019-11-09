@@ -1,3 +1,6 @@
+//カラーセンサS11059-02DT用ライブラリ
+//使い方注意
+//現状最大2個
 #ifndef ___COLOR_SENSOR_H
 #define ___COLOR_SENSOR_H
 #include<Wire.h>
@@ -6,23 +9,23 @@
 #include "filter.h"
 
 #define C_DEBUG 1
+TwoWire Wire2( 1 );//2個目のセンサ
 
 namespace kal{
 
 class color_sensor{
     public:
-    int r;
-    int g;
-    int b;
-    int a;
-    TwoWire Wire2( 1 );//2個目のセンサ
+    int r;//赤
+    int g;//緑
+    int b;//青
+    int a;//赤外線
 
     uint8_t sda_pin;
     uint8_t scl_pin;
     int num = 0;//2個までしか対応してない
 
-    void I2C_setup(uint8_t sda_pin, uint8_t scl_pin);
-    void read_color();
+    void I2C_setup(uint8_t sda_pin, uint8_t scl_pin, int num);//pinの設定
+    void read_color();//メンバ変数で取得
 
 };
 
@@ -30,8 +33,14 @@ void color_sensor::I2C_setup(uint8_t sda_pin, uint8_t scl_pin, int num){
     this->sda_pin = sda_pin;
     this->scl_pin = scl_pin;
     this->num = num;
-    if(num == 0){
-        Wire.begin(sda_pin, scl_pin);
+    //この後必ずinit
+}
+
+//これはメソッドではない
+//setup後に必ずinitする
+void color_sensor_init(color_sensor cl){
+    if(cl.num == 0){
+        Wire.begin(cl.sda_pin, cl.scl_pin);
         Wire.beginTransmission(0x2A);
         Wire.write(0x0);
         Wire.write(0x89);
@@ -41,8 +50,8 @@ void color_sensor::I2C_setup(uint8_t sda_pin, uint8_t scl_pin, int num){
         Wire.write(0x09);
         Wire.endTransmission();
     }
-    else if(num == 1){
-        Wire.begin(sda_pin, scl_pin);
+    if(cl.num == 1){
+        Wire2.begin(cl.sda_pin, cl.scl_pin);
         Wire2.beginTransmission(0x2A);
         Wire2.write(0x0);
         Wire2.write(0x89);
@@ -52,6 +61,7 @@ void color_sensor::I2C_setup(uint8_t sda_pin, uint8_t scl_pin, int num){
         Wire2.write(0x09);
         Wire2.endTransmission();
     }
+
 }
 
 void color_sensor::read_color(){
@@ -66,7 +76,6 @@ void color_sensor::read_color(){
             h = Wire.read();
             l = Wire.read();
             r = h << 8|l;
-
             //緑
             h = Wire.read();
             l = Wire.read();
@@ -108,6 +117,7 @@ void color_sensor::read_color(){
         }
         Wire2.endTransmission();
     }
+
 #if C_DEBUG
     Serial.print("num:");
     Serial.print(num);
