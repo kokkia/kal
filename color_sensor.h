@@ -1,3 +1,4 @@
+//esp32
 //カラーセンサS11059-02DT用ライブラリ
 //使い方注意
 //現状最大2個
@@ -5,8 +6,6 @@
 #define ___COLOR_SENSOR_H
 #include<Wire.h>
 #include "config.h"
-#include "utilize.h"
-#include "filter.h"
 
 #define C_DEBUG 1
 TwoWire Wire2( 1 );//2個目のセンサ
@@ -23,18 +22,14 @@ class color_sensor{
     uint8_t sda_pin;
     uint8_t scl_pin;
     int num = 0;//2個までしか対応してない
+    static int counter;//静的メンバ，カラーセンサーの番号を付ける
 
-    void I2C_setup(uint8_t sda_pin, uint8_t scl_pin, int num);//pinの設定
+    void I2C_setup(uint8_t sda_pin, uint8_t scl_pin);//pinの設定
     void read_color();//メンバ変数で取得
 
 };
 
-void color_sensor::I2C_setup(uint8_t sda_pin, uint8_t scl_pin, int num){
-    this->sda_pin = sda_pin;
-    this->scl_pin = scl_pin;
-    this->num = num;
-    //この後必ずinit
-}
+int color_sensor::counter = 0;//静的メンバ，カラーセンサーの番号を付ける
 
 //これはメソッドではない
 //setup後に必ずinitする
@@ -62,6 +57,14 @@ void color_sensor_init(color_sensor cl){
         Wire2.endTransmission();
     }
 
+}
+
+void color_sensor::I2C_setup(uint8_t sda_pin, uint8_t scl_pin){
+    this->sda_pin = sda_pin;
+    this->scl_pin = scl_pin;
+    this->num = counter++;
+    //この後必ずinit
+    color_sensor_init(*this);
 }
 
 void color_sensor::read_color(){
