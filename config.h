@@ -12,7 +12,7 @@
 #ifdef ARDUINO_KAL
 // #define Ts 0.002//sampling time[ms]
 #elif defined ESP32
-#define Ts 0.005
+#define Ts 0.010
 #elif defined TITECH
 #define Ts 0.001
 #endif

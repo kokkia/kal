@@ -45,7 +45,7 @@ void color_sensor_init(color_sensor cl){
         Wire.write(0x09);
         Wire.endTransmission();
     }
-    if(cl.num == 1){
+    else if(cl.num == 1){
         Wire2.begin(cl.sda_pin, cl.scl_pin);
         Wire2.beginTransmission(0x2A);
         Wire2.write(0x0);
