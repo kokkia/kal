@@ -1,14 +1,16 @@
 //esp32
 //カラーセンサS11059-02DT用ライブラリ
-//使い方注意
 //現状最大2個
+//Ts 0.010でないとうまく作動しない
+
 #ifndef ___COLOR_SENSOR_H
 #define ___COLOR_SENSOR_H
 #include<Wire.h>
 #include "config.h"
 
-#define C_DEBUG 1
+#define C_DEBUG 0
 TwoWire Wire2( 1 );//2個目のセンサ
+
 
 namespace kal{
 
