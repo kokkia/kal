@@ -8,7 +8,7 @@
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
-#define MAX_VOLTAGE 9.0//最大電圧
+#define MAX_VOLTAGE 3.3//最大電圧
 
 // #define KP 30.0
 // #define KD 5.0
