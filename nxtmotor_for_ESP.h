@@ -13,7 +13,7 @@
 // #define KP 30.0
 // #define KD 5.0
 // #define KDD 0.05
-#define P2RAD (2.0*PI/32000.0/4.0)
+#define P2RAD (2.0*PI/3600.0/4.0)
 
 namespace kal{
 
