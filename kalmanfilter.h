@@ -1,10 +1,13 @@
 //kalman filter for SISO system
-//@todo:MIMOに対応したい
+//@todo:MIMOの宣言の部分をコンパクトにしたい
 //@todo:EKFにも対応させる
 #ifndef ___KALMAN_FILTER_H
 #define ___KALMAN_FILTER_H
 #include "config.h"
 #include "utilize.h"
+#ifdef X2_KAL
+#include<eigen3/Eigen/Dense>
+#endif
 #ifdef EIGEN_KAL
 #include "eigen3.3.7/Eigen/Core"
 #endif
@@ -20,8 +23,8 @@ class StateSpace{
   Td D;
 
   StateSpace();
-  StateSpace(Ta A,Tb B,Tc C,Td D);
-  void set_eq(Ta A,Tb B,Tc C,Td D);
+  StateSpace(Ta A_in,Tb B_in,Tc C_in,Td D_in);
+  void set_eq(Ta A_in,Tb B_in,Tc C_in,Td D_in);
 };
 
 template <class Ta,class Tb,class Tc,class Td>
@@ -29,19 +32,19 @@ StateSpace<Ta,Tb,Tc,Td>::StateSpace(){
 }
 
 template <class Ta,class Tb,class Tc,class Td>
-StateSpace<Ta,Tb,Tc,Td>::StateSpace(Ta A,Tb B,Tc C,Td D){
-  this->A = A;
-  this->B = B;
-  this->C = C;
-  this->D = D;
+StateSpace<Ta,Tb,Tc,Td>::StateSpace(Ta A_in,Tb B_in,Tc C_in,Td D_in){
+  this->A = A_in;
+  this->B = B_in;
+  this->C = C_in;
+  this->D = D_in;
 }
 
 template <class Ta,class Tb,class Tc,class Td>
-void StateSpace<Ta,Tb,Tc,Td>::set_eq(Ta A,Tb B,Tc C,Td D){
-  this->A = A;
-  this->B = B;
-  this->C = C;
-  this->D = D;
+void StateSpace<Ta,Tb,Tc,Td>::set_eq(Ta A_in,Tb B_in,Tc C_in,Td D_in){
+  this->A = A_in;
+  this->B = B_in;
+  this->C = C_in;
+  this->D = D_in;
 }
 
 //Kalmanfilter for SISO
@@ -51,7 +54,7 @@ class KalmanFilter{
 public:
   T x_;
   T x_est;
-  T y;
+  //T y;
   T g;
   T P_bfr;
   T P_aft;
@@ -86,7 +89,7 @@ void KalmanFilter<T>::update(T u,T y){
   P_aft = (1 - g*1) * P_bfr;
 }
 
-#ifdef EIGEN_KAL
+#if defined(EIGEN_KAL)||defined(X2_KAL)
 //@todo:継承する？
 //Kalmanfilter for MIMO
 template <class Ta,class Tb,class Tc,class Td,class Tx, class Ty>
@@ -95,7 +98,7 @@ class KalmanFilter_MIMO{
 public:
   Tx x_;
   Tx x_est;
-  Ty y;
+  //Ty y;
   Eigen::MatrixXd G;
   Ta P_bfr;//事前
   Ta P_aft;//事後
@@ -103,8 +106,9 @@ public:
   Eigen::MatrixXd R;//wの分散
   StateSpace<Ta,Tb,Tc,Td> sys;
   KalmanFilter_MIMO();
-  KalmanFilter_MIMO(Tx x, Eigen::MatrixXd Q, Eigen::MatrixXd R);
-  KalmanFilter_MIMO(StateSpace<Ta,Tb,Tc,Td> sys_in,Tx x, Eigen::MatrixXd Q, Eigen::MatrixXd R);
+  KalmanFilter_MIMO(Tx x, Eigen::MatrixXd Q_in, Eigen::MatrixXd R_in);
+  KalmanFilter_MIMO(StateSpace<Ta,Tb,Tc,Td> sys_in,Tx x, Eigen::MatrixXd Q_in, Eigen::MatrixXd R_in);
+  void x_init(Tx x);
   void update(Tx u,Ty y,Tx& x_ret);
 };
 
@@ -113,17 +117,24 @@ KalmanFilter_MIMO<Ta,Tb,Tc,Td,Tx,Ty>::KalmanFilter_MIMO(){
 }
 
 template <class Ta,class Tb,class Tc,class Td,class Tx, class Ty>
-KalmanFilter_MIMO<Ta,Tb,Tc,Td,Tx,Ty>::KalmanFilter_MIMO(Tx x,Eigen::MatrixXd Q, Eigen::MatrixXd R){
+KalmanFilter_MIMO<Ta,Tb,Tc,Td,Tx,Ty>::KalmanFilter_MIMO(Tx x,Eigen::MatrixXd Q_in, Eigen::MatrixXd R_in){
   this->x_est = x;
-  this->Q = Q;
-  this->R = R;
+  this->Q = Q_in;
+  this->R = R_in;
 }
 
 template <class Ta,class Tb,class Tc,class Td,class Tx, class Ty>
-KalmanFilter_MIMO<Ta,Tb,Tc,Td,Tx,Ty>::KalmanFilter_MIMO(StateSpace<Ta,Tb,Tc,Td> sys_in,Tx x,Eigen::MatrixXd Q, Eigen::MatrixXd R): sys(sys_in){
+KalmanFilter_MIMO<Ta,Tb,Tc,Td,Tx,Ty>::KalmanFilter_MIMO(StateSpace<Ta,Tb,Tc,Td> sys_in,Tx x,Eigen::MatrixXd Q_in, Eigen::MatrixXd R_in): sys(sys_in){
   this->x_est = x;
-  this->Q = Q;
-  this->R = R;
+  sys = sys_in;
+  Q = Q_in;
+  R = R_in;
+}
+
+template <class Ta,class Tb,class Tc,class Td,class Tx, class Ty>
+void KalmanFilter_MIMO<Ta,Tb,Tc,Td,Tx,Ty>::x_init(Tx x){
+  x_ = x;
+  x_est = x;
 }
 
 template <class Ta,class Tb,class Tc,class Td,class Tx, class Ty>

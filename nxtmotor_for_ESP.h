@@ -2,17 +2,22 @@
 #ifndef ___NXTMOTOR_FOR_ESP_H
 #define ___NXTMOTOR_FOR_ESP_H
 #include<arduino.h>
-#include "utilize.h"
+//#include "utilize.h"
 #include "driver/pcnt.h"
+#include "joint_controller.h"
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
-#define MAX_VOLTAGE 5.0//最大電圧
+#define MAX_VOLTAGE 3.3//最大電圧
+
+// #define KP 30.0
+// #define KD 5.0
+// #define KDD 0.05
 
 
 namespace kal{
 
-class nxtmotor{
+class nxtmotor : public joint_controller{
 public:
     //PWM関連
     uint8_t pin_fwd;//方向制御pin
@@ -33,7 +38,6 @@ public:
     double angle = 0.0;//回転角度[rad]
     double angle_deg = 0.0;//回転角度[deg]
     void encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase,uint8_t pin_B_phase);
-    //void get_angle(pcnt_unit_t pcnt_unit,double& angle);
     void get_angle(double& angle);
 };
 
@@ -122,19 +126,14 @@ void nxtmotor::encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase/*A相*/,u
     pcnt_counter_resume(pcnt_unit);
 }
 
-// void nxtmotor::get_angle(pcnt_unit_t pcnt_unit,double& ret_angle){
-//     int16_t count;
-//     pcnt_get_counter_value(pcnt_unit, &count);
-//     angle = (double)count / 2.0 * DEG2RAD;
-//     angle_deg = (double)count / 2.0;
-//     ret_angle = angle;
-// }
 void nxtmotor::get_angle(double& ret_angle){
     int16_t count;
     pcnt_get_counter_value(unit, &count);
-    angle = (double)count / 2.0 * DEG2RAD;
-    angle_deg = (double)count / 2.0;
+    angle = (double)count / 2.0 * DEG2RAD;//radian
+    angle_deg = (double)count / 2.0;//degree
     ret_angle = angle;
+    //state.q = angle;
+    //@todo: ここで微分までやるか検討
 }
 
 }
