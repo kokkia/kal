@@ -62,7 +62,7 @@ void impedance_control<T,Tmat>::impedance_out(RobotData<T> state,T fref,T& f){
 }
 
 template<class T,class Tmat>
-void impedance_control<T,Tmat>::admitance_out(T fext,T fref,RobotData<T>& ref){//速度出力
+void impedance_control<T,Tmat>::admitance_out(T fext,T fref,RobotData<T>& ref){//速度出力/があるからスカラーでしか計算できない
     this->fext = fext;
     this->ref.dx = 1.0/(4*Md+2*Ts*Cd+Kd*Ts*Ts)*(2*Ts*(fext-this->fext_b2)-(Kd*Ts*Ts-8*Md)*this->ref_b1.dx-(4*Md-2*Ts*Cd+Kd*Ts*Ts)*this->ref_b2.dx);
     

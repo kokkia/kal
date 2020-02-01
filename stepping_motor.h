@@ -13,6 +13,7 @@ class stepping_motor{
     double v;//velocity[rad/s]
     double x;//position[rad]
     bool dir = 1;//回転方向
+    stepping_motor();
     stepping_motor(double n_in);
     void set_direction(bool dir_in);
     double velocity2pulse(double v);
@@ -20,6 +21,9 @@ class stepping_motor{
     double position_control_time(double x);
 
 };
+
+stepping_motor::stepping_motor(){
+}
 
 stepping_motor::stepping_motor(double n_in){
     n = n_in;
