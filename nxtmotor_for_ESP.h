@@ -13,7 +13,7 @@
 // #define KP 30.0
 // #define KD 5.0
 // #define KDD 0.05
-
+#define P2RAD (2.0*PI/3600.0/4.0)
 
 namespace kal{
 
@@ -27,6 +27,11 @@ public:
     double PWM_freq;//キャリア周波数
     uint8_t PWM_resolution_bit;//bit
     uint8_t PWM_resolution;
+
+    //エンコーダ限界対策
+    int16_t cnt = 0;
+    int16_t pre_cnt = 0;    
+    int diff = 0;
 
     nxtmotor();
     void GPIO_setup(uint8_t pin_fwd,uint8_t pin_bwd);
@@ -127,10 +132,17 @@ void nxtmotor::encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase/*A相*/,u
 }
 
 void nxtmotor::get_angle(double& ret_angle){
-    int16_t count;
-    pcnt_get_counter_value(unit, &count);
-    angle = (double)count / 2.0 * DEG2RAD;//radian
-    angle_deg = (double)count / 2.0;//degree
+    int32_t count;
+    pcnt_get_counter_value(unit, &cnt);
+    if(pre_cnt - cnt > 32000){
+      diff++;
+    }else if(pre_cnt - cnt < -32000){
+      diff--;
+    }
+    count = diff * 32767 + cnt;
+    pre_cnt = cnt;
+    angle = (double)count * P2RAD;//radian
+    angle_deg = (double)count *P2RAD * RAD2DEG;//degree
     ret_angle = angle;
     //state.q = angle;
     //@todo: ここで微分までやるか検討
