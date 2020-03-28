@@ -22,6 +22,7 @@
 #include "nxtmotor_for_ESP.h"
 #include "color_sensor.h"
 #include "two_wheel_drive.h"
+#include "servo_for_esp32.h"
 #elif defined TITECH
 #endif
 

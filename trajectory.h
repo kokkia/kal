@@ -25,6 +25,7 @@ public:
     T goal_val;
     double interval;
     T L;
+    bool start_flag = 0;
     bool goal_flag = 0;
     T a;
     T b;
@@ -48,6 +49,7 @@ void trajectory<T>::creat(T start_val_in,T goal_val_in,double start_time_in,doub
     goal_time = start_time + interval;
     type = type_in;
     L = goal_val - start_val;
+    start_flag = true;
     goal_flag = false;
     if(type == STEP){
         a = goal_val;
