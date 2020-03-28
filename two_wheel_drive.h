@@ -1,7 +1,7 @@
 //two_wheel_drive.h
 //2輪駆動ロボット制御ライブラリ
-#ifndef ___TWO_WHEEL_DRIVE_H
-#define ___TWO_WHEEL_DRIVE_H
+#ifndef ___KAL_TWO_WHEEL_DRIVE_H
+#define ___KAL_TWO_WHEEL_DRIVE_H
 #include "config.h"
 #include "utilize.h"
 //#include "joint_controller.h"

@@ -1,6 +1,6 @@
 //joint_controller
-#ifndef ___JOINT_CONTROLLER_H
-#define ___JOINT_CONTROLLER_H
+#ifndef ___KAL_JOINT_CONTROLLER_H
+#define ___KAL_JOINT_CONTROLLER_H
 #include "config.h"
 //#include "utilize.h"
 

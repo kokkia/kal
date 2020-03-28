@@ -1,8 +1,8 @@
 //kalman filter for SISO system
 //@todo:MIMOの宣言の部分をコンパクトにしたい
 //@todo:EKFにも対応させる
-#ifndef ___KALMAN_FILTER_H
-#define ___KALMAN_FILTER_H
+#ifndef ___KAL_KALMAN_FILTER_H
+#define ___KAL_KALMAN_FILTER_H
 #include "config.h"
 #include "utilize.h"
 #ifdef X2_KAL

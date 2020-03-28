@@ -1,6 +1,6 @@
 //filter and differentiator library
-#ifndef ___FILTER_H
-#define ___FILTER_H
+#ifndef ___KAL_FILTER_H
+#define ___KAL_FILTER_H
 #include "config.h"
 #include "utilize.h"
 

@@ -2,8 +2,8 @@
 軌跡生成ライブラリ
 未チェック
 */
-#ifndef ___TRAJECTORY_H
-#define ___TRAJECTORY_H
+#ifndef ___KAL_TRAJECTORY_H
+#define ___KAL_TRAJECTORY_H
 #include <math.h>
 #include "config.h"
 

@@ -2,8 +2,8 @@
 //外部割込みによるエンコーダカウント
 //@todo:nxtmotor class つくる
 
-#ifndef ___NXT_MOTOR_H
-#define ___NXT_MOTOR_H
+#ifndef ___KAL_NXT_MOTOR_H
+#define ___KAL_NXT_MOTOR_H
 //#include <Arduino.h>
 #include "utilize.h"
 //モータ

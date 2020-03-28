@@ -1,10 +1,10 @@
 //robot configulation
-#ifndef ___CONFIG_H
-#define ___CONFIG_H
+#ifndef ___KAL_CONFIG_H
+#define ___KAL_CONFIG_H
 //使うコントローラを選択
 //#define ARDUINO_KAL
-//#define ESP32
-#define TITECH
+#define ESP32
+//#define TITECH
 //#define EIGEN_KAL
 //#define X2_KAL
 

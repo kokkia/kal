@@ -1,5 +1,5 @@
-#ifndef ___STEPPING_MOTOR_H
-#define ___STEPPING_MOTOR_H
+#ifndef ___KAL_STEPPING_MOTOR_H
+#define ___KAL_STEPPING_MOTOR_H
 #include "config.h"
 #include <math.h>
 

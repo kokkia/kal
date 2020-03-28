@@ -1,6 +1,6 @@
 //convinient function
-#ifndef ___UTILIZE_H
-#define ___UTILIZE_H
+#ifndef ___KAL_UTILIZE_H
+#define ___KAL_UTILIZE_H
 #include<math.h>
 
 #define DEG2RAD (PI/180.0)

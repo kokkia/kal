@@ -1,6 +1,6 @@
 //wave generator
-#ifndef ___WAVE_H
-#define ___WAVW_H
+#ifndef ___KAL_WAVE_H
+#define ___KAL_WAVW_H
 #include "config.h"
 #include "utilize.h"
 
