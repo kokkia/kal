@@ -1,10 +1,11 @@
 //robot configulation
 #ifndef ___KAL_CONFIG_H
 #define ___KAL_CONFIG_H
+
 //使うコントローラを選択
 //#define ARDUINO_KAL
-#define ESP32
-//#define TITECH
+// #define ESP32
+#define UBUNTU 
 //#define EIGEN_KAL
 //#define X2_KAL
 
@@ -13,7 +14,7 @@
 // #define Ts 0.002//sampling time[ms]
 #elif defined ESP32
 #define Ts 0.005
-#elif defined TITECH
+#elif defined UBUNTU
 #define Ts 0.001
 #endif
 

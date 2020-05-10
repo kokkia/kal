@@ -14,16 +14,17 @@
 //未完成
 //#include "kinematics.h"
 
-
 //option
 #ifdef ARDUINO_KAL
 #include "nxtmotor.h"
+#elif defined UBUNTU
+#include "udp.h"
 #elif defined ESP32
 #include "nxtmotor_for_ESP.h"
 #include "color_sensor.h"
 #include "two_wheel_drive.h"
 #include "servo_for_esp32.h"
-#elif defined TITECH
+#else
 #endif
 
 #ifdef EIGEN_KAL
