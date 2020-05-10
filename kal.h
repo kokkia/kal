@@ -24,6 +24,7 @@
 #include "servo_for_esp32.h"
 #elif defined UBUNTU
 #include "udp.h"
+#include "gnuplot.h"
 #else
 #endif
 
