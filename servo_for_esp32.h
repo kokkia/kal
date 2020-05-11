@@ -42,7 +42,7 @@ void Servo::PWM_setup(   uint8_t pin_PWM,
 }
 
 void Servo::position_control(double rad){
-    int duty = (double)255 * (0.5 + 1.9 * (rad + 90*DEG2RAD)/PI)/20.0; 
+    int duty = (double)255 * (0.5 + 1.9 * (rad + 90*DEG2RAD)/PI)/20.0; //SG90の式になってるから後で汎化
     ledcWrite(channel, duty);
 }
 

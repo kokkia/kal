@@ -4,8 +4,8 @@
 
 //使うコントローラを選択
 //#define ARDUINO_KAL
-// #define ESP32
-#define UBUNTU 
+#define ESP32
+// #define UBUNTU 
 //#define EIGEN_KAL
 //#define X2_KAL
 

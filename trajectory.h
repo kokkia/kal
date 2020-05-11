@@ -81,7 +81,7 @@ T trajectory<T>::get(double now_time){
             ret_val = a*t + b; 
         }
         else if(type == COSIN){
-            ret_val = a *cos(2.0*PI/(interval*2.0) * t) + b;
+            ret_val = a/2.0 * (1 -cos(t/interval*PI)) + b;
         }
     }
     return ret_val;
