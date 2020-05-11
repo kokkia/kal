@@ -87,8 +87,8 @@ void color_sensor::read_color(){
             g = h << 8|l;
             //青
             h = Wire.read();
-            b = Wire.read();
-            r = h << 8|l;
+            l = Wire.read();
+            b = h << 8|l;
             //赤外
             h = Wire.read();
             l = Wire.read();
@@ -113,8 +113,8 @@ void color_sensor::read_color(){
             g = h << 8|l;
             //青
             h = Wire2.read();
-            b = Wire2.read();
-            r = h << 8|l;
+            l = Wire2.read();
+            b = h << 8|l;
             //赤外
             h = Wire2.read();
             l = Wire2.read();
