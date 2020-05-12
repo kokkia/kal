@@ -1,6 +1,8 @@
 //esp32用udp通信用ヘッダ
 #ifndef ___KAL_UDP_FOR_ESP32_H
 #define ___KAL_UDP_FOR_ESP32_H
+#include <lwip/sockets.h>
+#include <lwip/netdb.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #include "config.h"
@@ -23,12 +25,15 @@ class udp_for_esp32{
     //UDP通信関連の定義
     char packetbuffer[PACKET_SIZE]; 
     WiFiUDP udp;
-    T data;
+    // T* sbuffer;//送信用
+    // T rbuffer;//受信用
 
     udp_for_esp32();
     void set_udp();
     char receive_char();
-    void send(char* sdata);
+    T receive();
+    void send_char(char c);
+    void send(T sbuf);
 };
 
 template<class T>
@@ -62,13 +67,42 @@ char udp_for_esp32<T>::receive_char(){
     return packetbuffer[0];
 }
 
+//コンパイルできたが、使えるか不明
 template<class T>
-void udp_for_esp32<T>::send(char* sdata){
+T udp_for_esp32<T>::receive(){
+    T buffer;
+    int packetsize = udp.parsePacket();
+    if (packetsize>0) {
+        udp.read(&buffer,sizeof(buffer));
+        // Serial.print(packetbuffer); // UDP通信で来た値を表示
+    }
+    return buffer;
+
+}
+
+template<class T>
+void udp_for_esp32<T>::send_char(char c){
     udp.beginPacket(remoteip,remotePort);
-    udp.write('1');
+    udp.write(c);
     udp.endPacket();
 }
 
+//コンパイルできたが使えるか不明、自分でWiFiUDP.h書き換えた方が早いかも
+template<class T>
+void udp_for_esp32<T>::send(T sbuf){
+    udp.beginPacket(remoteip,remotePort);
+    // udp.write(&sbuf,sizeof(sbuf));
+    // udp.endPacket();
+    struct sockaddr_in recipient;
+    recipient.sin_addr.s_addr = (uint32_t)remoteip;
+    recipient.sin_family = AF_INET;
+    recipient.sin_port = htons(remotePort);
+    int sent = sendto(socket(AF_INET, SOCK_DGRAM, 0), &sbuf, sizeof(sbuf), 0, (struct sockaddr*) &recipient, sizeof(recipient));
+    if(sent < 0){
+        log_e("could not send data: %d", errno);
+        // return 0;
+    }
+}
     
 } // namespace name
 

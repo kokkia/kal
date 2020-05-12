@@ -22,6 +22,7 @@
 #define PI 3.14159265359
 #endif
 
+#define DOF 1
 
 namespace kal{
 
@@ -68,6 +69,23 @@ RobotData<T>::RobotData(){
   q = 0.0;
   dq = 0.0;
   d2q = 0.0;
+}
+
+
+class q_data{
+  public:
+    double q[DOF];
+    double dq[DOF];
+    double d2q[DOF];
+    q_data();
+};
+
+q_data::q_data(){
+  for(int i = 0;i<DOF;i++){
+    q[i] = 0.0;
+    dq[i] = 0.0;
+    d2q[i] = 0.0;
+  }
 }
 
 }
