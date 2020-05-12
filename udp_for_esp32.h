@@ -21,11 +21,12 @@ class udp_for_esp32{
     //UDP通信関連の定義
     char packetbuffer[PACKET_SIZE]; 
     WiFiUDP udp;
-    T data;
+    T buffer;
 
     udp_for_esp32();
     void set_udp();
     char receive_char();
+    T receive();
 };
 
 template<class T>
@@ -57,6 +58,17 @@ char udp_for_esp32<T>::receive_char(){
         Serial.print(packetbuffer); // UDP通信で来た値を表示
     }
     return packetbuffer[0];
+}
+
+template<class T>
+T udp_for_esp32<T>::receive(){
+    int packetsize = udp.parsePacket();
+    if (packetsize>0) {
+        udp.read(&buffer,sizeof(buffer));
+        // Serial.print(packetbuffer); // UDP通信で来た値を表示
+    }
+    return buffer;
+
 }
 
     
