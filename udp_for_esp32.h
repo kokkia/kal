@@ -11,6 +11,8 @@ const char pass[] = "esp32pass";  // password
 const int localPort = 10000;      // ポート番号
 const IPAddress ip(111, 11, 1, 11);       // IPアドレス(ゲートウェイも兼ねる)
 const IPAddress subnet(255, 255, 255, 0); // サブネットマスク
+const IPAddress remoteip(111,11,1,12);
+const int remotePort = 10001;
 
 namespace kal {
 
@@ -26,6 +28,7 @@ class udp_for_esp32{
     udp_for_esp32();
     void set_udp();
     char receive_char();
+    void send(char* sdata);
 };
 
 template<class T>
@@ -57,6 +60,13 @@ char udp_for_esp32<T>::receive_char(){
         Serial.print(packetbuffer); // UDP通信で来た値を表示
     }
     return packetbuffer[0];
+}
+
+template<class T>
+void udp_for_esp32<T>::send(char* sdata){
+    udp.beginPacket(remoteip,remotePort);
+    udp.write('1');
+    udp.endPacket();
 }
 
     
