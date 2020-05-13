@@ -2,7 +2,7 @@
 //とりあえずSG90用だが，後々汎化
 #ifndef ___KAL_SERVO_FOR_ESP_H
 #define ___KAL_SERVO_FOR_ESP_H
-#include<arduino.h>
+// #include<arduino.h>
 #include "utilize.h"
 #include "driver/pcnt.h"
 #include <math.h>
