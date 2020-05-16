@@ -1,6 +1,5 @@
 /*
 軌跡生成ライブラリ
-未チェック
 */
 #ifndef ___KAL_TRAJECTORY_H
 #define ___KAL_TRAJECTORY_H
@@ -11,6 +10,7 @@
 #define STEP 0
 #define LINER 1
 #define COSIN 2
+#define JERK 3
 
 namespace kal{
 
@@ -20,7 +20,7 @@ public:
     int type = 0;
     double start_time = 0.0;
     double goal_time;
-    double t;//現在時刻
+    double t;//相対時刻
     T start_val;
     T goal_val;
     double interval;
@@ -51,18 +51,6 @@ void trajectory<T>::creat(T start_val_in,T goal_val_in,double start_time_in,doub
     L = goal_val - start_val;
     start_flag = true;
     goal_flag = false;
-    if(type == STEP){
-        a = goal_val;
-        b = start_val;
-    }
-    else if(type == LINER){//y=ax+b
-        b = start_val;
-        a = L/interval;
-    }
-    else if(type == COSIN){//y=acos()+b
-        a = L;
-        b = start_val;
-    }   
 }
 
 template<class T>
@@ -77,11 +65,18 @@ T trajectory<T>::get(double now_time){
         ret_val = start_val;//@todo:要チェック
     }
     else{
-        if(type == LINER){
-            ret_val = a*t + b; 
+        if(type == STEP){
+            ret_val = goal_val;
+        }
+        else if(type == LINER){
+            ret_val = (goal_val-start_val)*t + start_val; 
         }
         else if(type == COSIN){
-            ret_val = a/2.0 * (1 -cos(t/interval*PI)) + b;
+            ret_val = (goal_val-start_val)/2.0 * (1 -cos(t/interval*PI)) + start_val;
+        }
+        else if(type == JERK){//jerk min
+            double tau = t/interval;
+            ret_val = start_val + (goal_val-start_val)*(10.0*tau*tau*tau-15.0*tau*tau*tau*tau+6.0*tau*tau*tau*tau*tau);
         }
     }
     return ret_val;
