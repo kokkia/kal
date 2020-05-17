@@ -1,11 +1,11 @@
 //esp32用udp通信用ヘッダ
-// esp32とPCでUDP通信すると高速なのは良いが、PCがインターネットにつなげなくなるのが現状問題
 #ifndef ___KAL_UDP_FOR_ESP32_H
 #define ___KAL_UDP_FOR_ESP32_H
 #include <lwip/sockets.h>
 #include <lwip/netdb.h>
 #include <WiFi.h>
-#include <WiFiUdp.h>
+// #include <WiFiUdp.h>
+#include "WiFiUdp2.h"
 #include "config.h"
 
 #define NO_NETWORK 0
@@ -32,7 +32,7 @@ class udp_for_esp32{
     
     char packetbuffer[PACKET_SIZE];
     IPAddress rip = remoteip;
-    WiFiUDP udp;
+    kWiFiUDP<T> udp;
     // T* sbuffer;//送信用
     // T rbuffer;//受信用
 
@@ -98,19 +98,13 @@ char udp_for_esp32<T>::receive_char(){
     return packetbuffer[0];
 }
 
-//char型以外の送受信面倒くさそう、一旦終了
-//コンパイルできたが、使えるか不明
-// template<class T>
-// T udp_for_esp32<T>::receive(){
-//     T buffer;
-//     int packetsize = udp.parsePacket();
-//     if (packetsize>0) {
-//         udp.read(&buffer,sizeof(buffer));
-//         // Serial.print(packetbuffer); // UDP通信で来た値を表示
-//     }
-//     return buffer;
+template<class T>
+T udp_for_esp32<T>::receive(){
+    T buffer;
+    buffer = udp.receive();
+    return buffer;
 
-// }
+}
 
 template<class T>
 void udp_for_esp32<T>::send_char(char c){
@@ -119,23 +113,11 @@ void udp_for_esp32<T>::send_char(char c){
     udp.endPacket();
 }
 
-//char型以外の送受信面倒くさそう、一旦終了
-//コンパイルできたが使えるか不明、自分でWiFiUDP.h書き換えた方が早いかも
-// template<class T>
-// void udp_for_esp32<T>::send(T sbuf){
-//     udp.beginPacket(remoteip,remotePort);
-//     // udp.write(&sbuf,sizeof(sbuf));
-//     // udp.endPacket();
-//     struct sockaddr_in recipient;
-//     recipient.sin_addr.s_addr = (uint32_t)remoteip;
-//     recipient.sin_family = AF_INET;
-//     recipient.sin_port = htons(remotePort);
-//     int sent = sendto(socket(AF_INET, SOCK_DGRAM, 0), &sbuf, sizeof(sbuf), 0, (struct sockaddr*) &recipient, sizeof(recipient));
-//     if(sent < 0){
-//         log_e("could not send data: %d", errno);
-//         // return 0;
-//     }
-// }
+template<class T>
+void udp_for_esp32<T>::send(T sbuf){
+    udp.beginPacket(rip,remotePort);
+    udp.send(sbuf);
+}
     
 } // namespace name
 
