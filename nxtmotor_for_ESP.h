@@ -1,7 +1,7 @@
 //nxtmotor controller for esp32
 #ifndef ___KAL_NXTMOTOR_FOR_ESP_H
 #define ___KAL_NXTMOTOR_FOR_ESP_H
-#include<arduino.h>
+// #include<arduino.h>
 //#include "utilize.h"
 #include "driver/pcnt.h"
 #include "joint_controller.h"
