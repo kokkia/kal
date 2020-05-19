@@ -7,7 +7,7 @@
 #include <math.h>
 #include <unistd.h>
 
-#define N_PLOT 1000
+#define N_PLOT 500
 
 namespace kal{
     
@@ -48,7 +48,7 @@ gnuplot::~gnuplot(){//デストラクタ
 
 void gnuplot::config()
 {
-    fprintf(gp,"set xrange [0.0:10.0]\n");
+    fprintf(gp,"set xrange [0.0:5.0]\n");
     fprintf(gp,"set yrange [-1.5:1.5]\n");
     fprintf(gp,"unset tics\n");
     fprintf(gp,"set xtics 10.0\n");
@@ -114,7 +114,7 @@ void gnuplot::rt_plot(double t,double* x){
 
     if(cnt>N_PLOT-1){
         cnt = 0;
-        fprintf(gp,"set xrange [%f:%f]\n",t,t+10);
+        fprintf(gp,"set xrange [%f:%f]\n",t,t+5);
     }
 }
 
