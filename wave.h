@@ -9,6 +9,7 @@
 #define SIN 1
 #define TRIANGLE 2
 #define CHARPSIN 3
+#define RECTANGLE 4
 
 namespace kal{
 
@@ -52,9 +53,11 @@ void wave::update(){
   case CONST:
     output = ave;
     break;
+
   case SIN:
     output = amp*sin(2.0*PI*f*t) + ave;
     break;
+  
   case TRIANGLE:
     if(t>=1.0/f){
       t = 0.0;
@@ -69,6 +72,7 @@ void wave::update(){
       output = amp/(1.0/f/4.0) * t + (ave - 4.0*amp);
     }
     break;
+  
   case CHARPSIN:
     f += 0.0005;
     output = amp*sin(2.0*PI*f*t) + ave;
@@ -77,6 +81,20 @@ void wave::update(){
       t = 0.0;
     }
     break;
+
+  case RECTANGLE:
+    if(t>=1.0/f){
+      t = 0.0;
+    }
+    if(0.0<=t && t<=1.0/2.0/f){
+      output = amp + ave;  
+    }
+    else if(1.0/2.0/f<t && t<=1.0/f){
+      output = -amp + ave;
+    }
+    break;
+
+
   default:
     break;
   }
