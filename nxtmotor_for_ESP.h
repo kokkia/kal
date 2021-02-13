@@ -8,12 +8,14 @@
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
-#define MAX_VOLTAGE 3.3//最大電圧
+#define MAX_VOLTAGE 12.0//最大電圧
+// #define MAX_VOLTAGE 3.3//最大電圧
 
 // #define KP 30.0
 // #define KD 5.0
 // #define KDD 0.05
-#define P2RAD (2.0*PI/180.0/4.0)//nxtmotor
+// #define P2RAD (2.0*PI/180.0/4.0)//nxtmotor
+#define P2RAD (2.0*PI/(11.0*522.0*4))//nici motor
 
 namespace kal{
 
