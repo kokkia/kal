@@ -8,8 +8,9 @@
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
-#define MAX_VOLTAGE 5.0//最大電圧
+#define MAX_VOLTAGE 12.0//5.0//最大電圧
 // #define MAX_VOLTAGE 3.3//最大電圧
+#define PWM_RESOLUTION 1023
 
 // #define KP 30.0
 // #define KD 5.0
@@ -78,7 +79,7 @@ void nxtmotor::PWM_setup(   uint8_t pin_PWM,
 //駆動
 void nxtmotor::drive(double u/*volt*/){
   range(-MAX_VOLTAGE,MAX_VOLTAGE,u);
-  int duty = 255 * fabs(u) / MAX_VOLTAGE;//PWM_resolution-1
+  int duty = float(PWM_RESOLUTION) * fabs(u) / MAX_VOLTAGE;//PWM_resolution-1
   if(u > 0.0){//順回転
     digitalWrite(pin_fwd,HIGH);
     digitalWrite(pin_bwd,LOW);
