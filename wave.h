@@ -20,9 +20,10 @@ class wave{
     double ave;
     double amp;
     double f;
+    double phase;
     double output;
     wave();
-    wave(double ave_in,double amp_in,double f_in,int type);
+    wave(double ave_in,double amp_in,double f_in,double phase_in,int type);
     void update();
 };
 
@@ -32,10 +33,11 @@ wave::wave(){
   amp=0.0;
   f=0.0;
   output=0.0;
+  phase=0.0;
   type = SIN;
 }
 
-wave::wave(double ave_in,double amp_in,double f_in,int type_in = SIN){
+wave::wave(double ave_in,double amp_in,double f_in,double phase_in=0.0,int type_in = SIN){
   ave=ave_in;
   amp=fabs(amp_in);
   f=f_in;
@@ -44,6 +46,12 @@ wave::wave(double ave_in,double amp_in,double f_in,int type_in = SIN){
   if(type == CHARPSIN){
     f = 0.0;
   }
+  phase = phase_in;
+  range(-2.0*PI,2.0*PI,phase);
+  if(phase<0.0){
+    phase = 2.0*PI+phase;
+  }
+  t = phase/2.0/PI/f;
 }
 
 void wave::update(){
@@ -55,6 +63,9 @@ void wave::update(){
     break;
 
   case SIN:
+    if(t>=1.0/f){
+      t = 0.0;
+    }
     output = amp*sin(2.0*PI*f*t) + ave;
     break;
   

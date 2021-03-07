@@ -46,6 +46,7 @@ public:
     double angle = 0.0;//回転角度[rad]
     double angle_deg = 0.0;//回転角度[deg]
     void encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase,uint8_t pin_B_phase);
+    void set_angle(double angle);
     void get_angle(double& angle);
 };
 
@@ -132,6 +133,11 @@ void nxtmotor::encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase/*A相*/,u
     pcnt_counter_pause(pcnt_unit);
     pcnt_counter_clear(pcnt_unit);
     pcnt_counter_resume(pcnt_unit);
+}
+
+void nxtmotor::set_angle(double angle){
+    this->angle = angle;
+    this->angle_deg = angle*RAD2DEG;
 }
 
 void nxtmotor::get_angle(double& ret_angle){
