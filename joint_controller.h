@@ -19,9 +19,10 @@ class joint_controller{
         double Kcp;
         double Kcd;
         //ff_param
-        double J;
-        double D;
-        double K;
+        double J = 0.0;
+        double D = 0.0;
+        double K = 0.0;
+        double offset = 0.0;
         //@todo:friction model 入れたい
         
         //関節角度
@@ -38,7 +39,7 @@ class joint_controller{
         void set_fb_param(double Kp,double Ki,double Kd);
         void set_fb_v_param(double Kvp,double Kvi,double Kvd);
         void set_fb_cc_param(double Kcp,double Kcd);
-        void set_ff_param(double J,double D,double K);
+        void set_ff_param(double J,double D,double K, double offset);
 
         double feedforward_control(void);
         double position_control(void);
@@ -65,14 +66,16 @@ void joint_controller::set_fb_cc_param(double Kcp,double Kcd){
     this->Kcd = Kcd;
 }
 
-void joint_controller::set_ff_param(double J,double D,double K){
+void joint_controller::set_ff_param(double J,double D,double K, double offset){
     this->J = J;
     this->D = D;
     this->K = K;
+    this->offset = offset;
 }
 
 double joint_controller::feedforward_control(void){
-    output = J * ref.d2q + D * ref.dq + K * ref.q;
+    double sgn = ref.dq/abs(ref.dq);
+    output = J * ref.d2q + D * ref.dq + K * ref.q + sgn * offset;
     return output;
 }
 
