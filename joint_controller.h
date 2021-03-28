@@ -74,7 +74,13 @@ void joint_controller::set_ff_param(double J,double D,double K, double offset){
 }
 
 double joint_controller::feedforward_control(void){
-    double sgn = ref.dq/abs(ref.dq);
+    double sgn = 1.0;
+    if(abs(ref.dq)<0.001){
+        sgn = 0.0;
+    }
+    else{
+        sgn = ref.dq/abs(ref.dq);
+    }
     output = J * ref.d2q + D * ref.dq + K * ref.q + sgn * offset;
     return output;
 }
