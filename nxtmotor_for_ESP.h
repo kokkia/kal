@@ -8,12 +8,15 @@
 
 #define PWM_CAREER_FREQ 50000//Hz
 #define PWM_RESOLUTION_BIT 8//bit
-#define MAX_VOLTAGE 3.3//最大電圧
+#define MAX_VOLTAGE 5.0//最大電圧
+// #define MAX_VOLTAGE 3.3//最大電圧
+#define PWM_RESOLUTION 1023
 
 // #define KP 30.0
 // #define KD 5.0
 // #define KDD 0.05
-#define P2RAD (2.0*PI/3600.0/4.0)
+// #define P2RAD (2.0*PI/180.0/4.0)//nxtmotor
+#define P2RAD (2.0*PI/(11.0*522.0*4))//nici motor
 
 namespace kal{
 
@@ -43,6 +46,7 @@ public:
     double angle = 0.0;//回転角度[rad]
     double angle_deg = 0.0;//回転角度[deg]
     void encoder_setup(pcnt_unit_t pcnt_unit,uint8_t pin_A_phase,uint8_t pin_B_phase);
+    void set_angle(double angle);
     void get_angle(double& angle);
 };
 
@@ -76,7 +80,7 @@ void nxtmotor::PWM_setup(   uint8_t pin_PWM,
 //駆動
 void nxtmotor::drive(double u/*volt*/){
   range(-MAX_VOLTAGE,MAX_VOLTAGE,u);
-  int duty = 255 * fabs(u) / MAX_VOLTAGE;//PWM_resolution-1
+  int duty = float(PWM_RESOLUTION) * fabs(u) / MAX_VOLTAGE;//PWM_resolution-1
   if(u > 0.0){//順回転
     digitalWrite(pin_fwd,HIGH);
     digitalWrite(pin_bwd,LOW);

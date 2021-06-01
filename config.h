@@ -13,7 +13,8 @@
 #ifdef ARDUINO_KAL
 // #define Ts 0.002//sampling time[ms]
 #elif defined ESP32
-#define Ts 0.005
+#define Ts 0.01
+// #define Ts 0.005
 #elif defined UBUNTU
 #define Ts 0.001
 #endif
