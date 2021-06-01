@@ -16,7 +16,7 @@
 #define Ts 0.01
 // #define Ts 0.005
 #elif defined UBUNTU
-#define Ts 0.001
+#define Ts 0.01
 #endif
 
 #ifndef X2_KAL

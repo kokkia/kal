@@ -24,7 +24,7 @@ class wave{
     double output;
     wave();
     wave(double ave_in,double amp_in,double f_in,double phase_in,int type);
-    void update();
+    double update();
 };
 
 wave::wave(){
@@ -54,7 +54,7 @@ wave::wave(double ave_in,double amp_in,double f_in,double phase_in=0.0,int type_
   t = phase/2.0/PI/f;
 }
 
-void wave::update(){
+double wave::update(){
   t+=Ts;
   //t = t%((int)(1.0/f));//tの∞積分を防止
   switch (type){
@@ -109,7 +109,8 @@ void wave::update(){
   default:
     break;
   }
-  
+
+  return output;
 }
 
 }
