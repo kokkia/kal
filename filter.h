@@ -115,6 +115,62 @@ void Diff<T>::update(T xm/*現在値*/,T& dxm/*微分値*/){//@todo:普通にret
   this->x_bfr = xm;
 }
 
+//目標値をramp入力に変換しする
+template <class T>
+class ramp{
+public:
+  T x;
+  T acc_limit;
+  T dec_limit;
+  ramp();
+  ramp(T x_in, T acc_max, T dec_max);
+  void init(T x_in, T acc_max, T dec_max);
+  void set_acc(T acc_max, T dec_max);
+  void update(T x_in, T& ret_x);
+
+};
+
+template <class T>
+ramp<T>::ramp(){
+  this->x=0.0;
+  this->acc_limit = 0.0;
+  this->dec_limit = 0.0;
+}
+
+template <class T>
+ramp<T>::ramp(T x_in, T acc_limit, T dec_limit){
+  this->init( x_in, acc_limit, dec_limit);
+}
+
+template <class T>
+void ramp<T>::init(T x_in, T acc_limit, T dec_limit){
+  x=x_in;
+  this->acc_limit = acc_limit;
+  this->dec_limit = dec_limit;
+}
+
+template <class T>
+void ramp<T>::set_acc(T acc_limit, T dec_limit){
+  this->acc_limit = acc_limit;
+  this->dec_limit = dec_limit;
+}
+
+template <class T>
+void ramp<T>::update(T x_target, T& ret_x){
+  if(x_target > this->x + this->acc_limit * Ts ){
+    this->x = this->x + this->acc_limit * Ts;
+  }
+  else if(x_target < this->x - this->dec_limit * Ts){
+    this->x = this->x - this->dec_limit * Ts;
+  }
+  else{
+    this->x = x_target;
+  }
+  
+  ret_x = this->x;
+}
+
+
 }
 
 #endif
